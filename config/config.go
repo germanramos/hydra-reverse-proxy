@@ -3,20 +3,11 @@ package config
 import (
 	"flag"
 	"io/ioutil"
-	// "net/url"
 	"os"
-	// "path/filepath"
-	// "strconv"
 	"strings"
-
-	// "github.com/innotech/hydra-reverse-proxy/log"
 
 	"github.com/innotech/hydra-reverse-proxy/vendors/github.com/BurntSushi/toml"
 )
-
-// const (
-// 	defaultProxyAddress = ":7080"
-// )
 
 type Config struct {
 	AppId          string `toml:"app_id"`
@@ -33,7 +24,6 @@ type Config struct {
 
 func New() *Config {
 	c := new(Config)
-	// c.ProxyAddr = defaultProxyAddress
 
 	return c
 }
