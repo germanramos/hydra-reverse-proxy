@@ -1,4 +1,4 @@
-package config_test
+package reverse_proxy_test
 
 import (
 	. "github.com/innotech/hydra-reverse-proxy/vendors/github.com/onsi/ginkgo"
@@ -9,5 +9,5 @@ import (
 
 func TestConfig(t *testing.T) {
 	RegisterFailHandler(Fail)
-	RunSpecs(t, "Config Suite")
+	RunSpecs(t, "Reverse Proxy Suite")
 }

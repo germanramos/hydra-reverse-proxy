@@ -4,33 +4,15 @@ import (
 	"net/http"
 	"net/http/httputil"
 	"net/url"
+
+	"github.com/innotech/hydra-reverse-proxy/log"
+	"github.com/innotech/hydra-reverse-proxy/reverse_proxy"
 )
 
-type Config struct {
-	sourceAddr      string
-	destinationAddr string
-}
-
 func main() {
-	sourceAddress := ":3000"
-	destinationUrlString := "http://127.0.0.1:7772"
-	destinationUrl, _ := url.Parse(destinationUrlString)
-	proxyHandler := httputil.NewSingleHostReverseProxy(destinationUrl)
-	server := http.Server{
-		Addr:    sourceAddress,
-		Handler: proxyHandler,
+	proxy, err := HydraReverseProxyFactory.Build(os.Args[1:])
+	if err != nil {
+		log.Fatal(err.Error() + "\n")
 	}
-	server.ListenAndServe()
+	proxy.Run()
 }
-
-// loadAppsFromJSON reads application configuration from json file
-// func (a *ApplicationsConfig) loadAppsFromJSON(pathToFile string) error {
-// 	fileContent, err := ioutil.ReadFile(pathToFile)
-// 	if err != nil {
-// 		return err
-// 	}
-// 	if err := json.Unmarshal(fileContent, &(a.Apps)); err != nil {
-// 		return err
-// 	}
-// 	return nil
-// }
