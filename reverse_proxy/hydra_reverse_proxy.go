@@ -38,6 +38,7 @@ func (h *HydraReverseProxy) buildHydraClient() *Client {
 		WithMaxNumberOfRetriesPerHydraServer(h.HydraClient.MaxNumberOfRetries).
 		WaitBetweenAllServersRetry(time.Duration(h.HydraClient.DurationBetweenAllServersRetry) * time.Millisecond)
 
+	log.Info("Trying to connect with hydra servers")
 	return HydraClientFactory.Build()
 }
 
@@ -104,6 +105,7 @@ func (h *HydraReverseProxy) buildServer() http.Server {
 // Run launches the proxy server and kept listening requests.
 func (h *HydraReverseProxy) Run() {
 	server := h.buildServer()
+	log.Info("Connection established")
 	err := server.ListenAndServe()
 	if err != nil {
 		log.Fatal(err.Error())

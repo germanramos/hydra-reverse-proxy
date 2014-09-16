@@ -148,13 +148,17 @@ func (c *Client) requestCandidateServers(appId string) ([]string, error) {
 	var numberOfHydraServers uint = c.getNumberOfHydraServers()
 	var totalNumberOfRetries uint = c.maxNumberOfRetries * numberOfHydraServers
 
-	var currentHydraServerIndex int = 0
+	var currentHydraServerIndex uint = 0
 	for c.maxNumberOfRetries == 0 || retries < totalNumberOfRetries {
 		servers, err := c.hydraServersRequester.GetCandidateServers(c.hydraServers[currentHydraServerIndex]+AppRootPath, appId)
 		if err == nil {
 			return servers, nil
 		} else {
-			currentHydraServerIndex++
+			if currentHydraServerIndex+1 < c.getNumberOfHydraServers() {
+				currentHydraServerIndex = currentHydraServerIndex + 1
+			} else {
+				currentHydraServerIndex = 0
+			}
 			retries++
 		}
 
