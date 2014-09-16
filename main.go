@@ -1,12 +1,10 @@
 package main
 
 import (
-	"net/http"
-	"net/http/httputil"
-	"net/url"
-
 	"github.com/innotech/hydra-reverse-proxy/log"
-	"github.com/innotech/hydra-reverse-proxy/reverse_proxy"
+	. "github.com/innotech/hydra-reverse-proxy/reverse_proxy"
+
+	"os"
 )
 
 func main() {
