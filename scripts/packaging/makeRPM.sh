@@ -9,7 +9,7 @@ rpmdev-setuptree
 mkdir ~/rpmbuild/SOURCES/hydra-reverse-proxy-0
 cp ./fixtures/hydra-reverse-proxy.conf  ~/rpmbuild/SOURCES/hydra-reverse-proxy-0
 cp hydra-reverse-proxy-init.d.sh ~/rpmbuild/SOURCES/hydra-reverse-proxy-0
-cp ../../bin/hydra-reverse-proxy ~/rpmbuild/SOURCES/hydra-core-0
+cp ../../bin/hydra-reverse-proxy ~/rpmbuild/SOURCES/hydra-reverse-proxy-0
 
 cp hydra-reverse-proxy.spec ~/rpmbuild/SPECS
 
