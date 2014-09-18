@@ -5,28 +5,18 @@ import (
 )
 
 type AppsCacheMonitor struct {
-	controller   chan string
-	hydraClient  HydraClient
-	running      bool
-	timeInterval time.Duration
+	AbstractCacheMonitor
 }
 
 func NewAppsCacheMonitor(hydraClient HydraClient, refreshInterval time.Duration) *AppsCacheMonitor {
-	return &AppsCacheMonitor{
-		hydraClient:  hydraClient,
-		running:      false,
-		timeInterval: refreshInterval,
-	}
+	a := new(AppsCacheMonitor)
+	a.hydraClient = hydraClient
+	a.running = false
+	a.timeInterval = refreshInterval
+	return a
 }
 
-func (a *AppsCacheMonitor) GetInterval() time.Duration {
-	return a.timeInterval
-}
-
-func (a *AppsCacheMonitor) IsRunning() bool {
-	return a.running
-}
-
+// Run executes a coroutine that reload periodically the application cache of the Hydra Client
 func (a *AppsCacheMonitor) Run() {
 	a.controller = make(chan string, 1)
 	a.running = true
@@ -43,8 +33,4 @@ func (a *AppsCacheMonitor) Run() {
 		}
 		a.running = false
 	}()
-}
-
-func (a *AppsCacheMonitor) Stop() {
-	a.controller <- "stop"
 }
