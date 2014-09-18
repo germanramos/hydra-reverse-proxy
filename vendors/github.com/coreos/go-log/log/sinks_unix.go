@@ -21,7 +21,7 @@ package log
 
 import (
 	"fmt"
-	"github.com/coreos/go-systemd/journal"
+	"github.com/innotech/hydra-reverse-proxy/vendors/github.com/coreos/go-systemd/journal"
 	"io"
 	"strings"
 )
