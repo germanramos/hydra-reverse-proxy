@@ -1,4 +1,4 @@
-package acceptance_test
+package reverse_proxy_test
 
 import (
 	. "github.com/innotech/hydra-reverse-proxy/vendors/github.com/onsi/ginkgo"
