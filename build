@@ -1,0 +1,8 @@
+#!/bin/sh -e
+
+export GOBIN=${PWD}/bin
+
+rm -rf bin pkg
+
+go clean
+go install github.com/innotech/hydra-reverse-proxy
