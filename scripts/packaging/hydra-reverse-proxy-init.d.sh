@@ -48,7 +48,7 @@ start)
         sudo mkdir /var/log/${APP_NAME}
       fi
       sudo chown -R $USER:$GROUP /var/log/${APP_NAME}   
-      $DAEMON $DAEMON_ARGS &> /var/log/${APP_NAME}/hydra.log &
+      $DAEMON $DAEMON_ARGS &> /var/log/${APP_NAME}/${APP_NAME}.log &
       RETVAL=$?
       if [ $RETVAL -eq 0 ]
       then
