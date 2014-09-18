@@ -37,18 +37,14 @@ start)
     cd $RUNDIR
     rm -rf conf log snapshot
     if [[ $(echo $DISTRO_INFO | grep 'Debian\|Ubuntu') != "" ]]; then
-      if start-stop-daemon --start --pidfile $PID_FILE --chdir $RUNDIR --background --make-pidfile --exec $DAEMON -- $DAEMON_ARGS &> /var/log/${APP_NAME}/${APP_NAME}.log
+      if start-stop-daemon --start --pidfile $PID_FILE --chdir $RUNDIR --background --make-pidfile --exec $DAEMON -- $DAEMON_ARGS &> /var/log/${APP_NAME}.log
       then
         echo ok
       else
         echo start failed
       fi
-    else
-      if [ ! -d /var/log/${APP_NAME} ]; then
-        sudo mkdir /var/log/${APP_NAME}
-      fi
-      sudo chown -R $USER:$GROUP /var/log/${APP_NAME}   
-      $DAEMON $DAEMON_ARGS &> /var/log/${APP_NAME}/${APP_NAME}.log &
+    else  
+      $DAEMON $DAEMON_ARGS &> /var/log/${APP_NAME}.log &
       RETVAL=$?
       if [ $RETVAL -eq 0 ]
       then
