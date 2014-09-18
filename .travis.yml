@@ -15,5 +15,6 @@ install:
   - export PATH=$PATH:$HOME/gopath/bin
 
 script:
-  - ./test.sh
+  - ./build
+  - cd reverse_proxy && ginkgo -r --failOnPending --cover --trace
   - $HOME/gopath/bin/goveralls -repotoken xuyphipg05P7ada0J8GeqzFp3TSGBLSPU
