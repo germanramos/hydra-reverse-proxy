@@ -1,0 +1,12 @@
+Package: hydra-reverse-proxy
+Version: 0-1
+Architecture: all
+Maintainer: innotech
+Installed-Size: 16777
+Section: custom
+Priority: extra
+Description: Hydra Reverse Proxy
+ Hydra Reverse Proxy is a service that actua as a reverse proxy hacia an application balanced for Hydra.
+ Hydra attempts to ease the routing and balancing burden from servers and delegate it on the client (browser, mobile app, etc).
+ .
+
