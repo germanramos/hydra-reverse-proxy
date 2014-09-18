@@ -15,7 +15,7 @@ cp hydra-reverse-proxy.spec ~/rpmbuild/SPECS
 
 pushd ~/rpmbuild/SOURCES/
 tar czf hydra-reverse-proxy-0.1.tar.gz hydra-reverse-proxy-0/
-cd ~/rpmbuild 
+cd ~/rpmbuild
 rpmbuild -ba SPECS/hydra-reverse-proxy.spec
 
 popd
