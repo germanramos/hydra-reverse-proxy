@@ -14,11 +14,13 @@ Reverse proxy service to applications balanced by hydra.
 %setup -q
 %build
 %install
+install -m 0755 -d $RPM_BUILD_ROOT/usr/local
 install -m 0755 hydra-reverse-proxy $RPM_BUILD_ROOT/usr/local/hydra-reverse-proxy
 
 install -m 0755 -d $RPM_BUILD_ROOT/etc/init.d
 install -m 0755 hydra-reverse-proxy-init.d.sh $RPM_BUILD_ROOT/etc/init.d/hydra-reverse-proxy
 
+install -m 0755 -d $RPM_BUILD_ROOT/etc
 install -m 0644 hydra-reverse-proxy.conf $RPM_BUILD_ROOT/etc/hydra-reverse-proxy.conf
 %clean
 rm -rf $RPM_BUILD_ROOT
