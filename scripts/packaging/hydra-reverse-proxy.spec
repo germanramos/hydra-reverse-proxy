@@ -28,7 +28,7 @@ rm -rf $RPM_BUILD_ROOT
 echo   You should edit config file /etc/hydra-reverse-proxy.conf
 echo   When finished, you may want to run \"update-rc.d hydra-reverse-proxy defaults\"
 %files
-%dir /etc
 /usr/local/hydra-reverse-proxy
+%dir /etc
 /etc/hydra-reverse-proxy.conf
 /etc/init.d/hydra-reverse-proxy
