@@ -28,6 +28,12 @@ LOCK_FILE=/var/lock/subsys/${APP_NAME}
 USER=root
 GROUP=root
 
+rh_status() {
+    status $PID_DIR/$APP_NAME $DAEMON
+    RETVAL=$?
+    return $RETVAL
+}
+
 case "$1" in
 start)
   if [ -f $PID_FILE ]
@@ -70,6 +76,9 @@ stop)
 restart)
   ${0} stop
   ${0} start
+  ;;
+status)
+  rh_status
   ;;
 *)
   echo "Usage: /etc/init.d/$NAME {start|stop|restart}"
