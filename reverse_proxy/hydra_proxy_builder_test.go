@@ -96,8 +96,8 @@ var _ = Describe("Hydra Proxy Factory", func() {
 			})
 		})
 		Context("When -hydra-servers flag exists", func() {
-			const HYDRA_SERVER_1 string = "203.0.113.101:7001"
-			const HYDRA_SERVER_2 string = "203.0.113.102:7001"
+			const HYDRA_SERVER_1 string = "http://203.0.113.101:7001"
+			const HYDRA_SERVER_2 string = "http://203.0.113.102:7001"
 			p, err := HydraReverseProxyFactory.Build([]string{"-hydra-servers", HYDRA_SERVER_1 + "," + HYDRA_SERVER_2})
 			It("should build the proxy successfully", func() {
 				Expect(err).NotTo(HaveOccurred())
