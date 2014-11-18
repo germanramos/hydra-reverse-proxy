@@ -29,6 +29,7 @@ type HydraReverseProxy struct {
 
 // buildHydraClient builds a hydra client configured completely.
 func (h *HydraReverseProxy) buildHydraClient() Client {
+	Reset()
 	factory, err := Config(h.HydraServers)
 	if err != nil {
 		log.Fatal(err.Error())
