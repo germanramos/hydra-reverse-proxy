@@ -14,6 +14,10 @@ import (
 )
 
 var _ = Describe("Hydra-Reverse-Proxy", func() {
+	BeforeEach(func() {
+		time.Sleep(time.Duration(1000) * time.Millisecond)
+	})
+
 	Context("when none hydra server is accesible", func() {
 		It("should not be able to run", func() {
 			appId := "app1"
@@ -96,10 +100,9 @@ var _ = Describe("Hydra-Reverse-Proxy", func() {
 					// END HYDRA MOCK
 
 					// PROXY
-					proxyAddr := ":3000"
+					proxyAddr := ":3001"
 					proxy, err := HydraReverseProxyFactory.Build([]string{"-app-id", appId, "-hydra-servers", *hydraServerAddr, "-proxy-addr", proxyAddr})
 					Expect(err).ToNot(HaveOccurred())
-					// wg.Add(1)
 					go func() {
 						proxy.Run()
 					}()
@@ -157,7 +160,7 @@ var _ = Describe("Hydra-Reverse-Proxy", func() {
 					// END HYDRA MOCK
 
 					// PROXY
-					proxyAddr := ":3001"
+					proxyAddr := ":3002"
 					proxy, err := HydraReverseProxyFactory.Build([]string{"-app-id", appId, "-hydra-servers", *hydraServerAddr, "-proxy-addr", proxyAddr})
 					Expect(err).ToNot(HaveOccurred())
 					go func() {
@@ -219,7 +222,7 @@ var _ = Describe("Hydra-Reverse-Proxy", func() {
 					// END HYDRA MOCK
 
 					// PROXY
-					proxyAddr := ":3002"
+					proxyAddr := ":3003"
 					proxy, err := HydraReverseProxyFactory.Build([]string{"-app-id", appId, "-hydra-servers", *hydraServerAddr, "-proxy-addr", proxyAddr})
 					Expect(err).ToNot(HaveOccurred())
 					go func() {

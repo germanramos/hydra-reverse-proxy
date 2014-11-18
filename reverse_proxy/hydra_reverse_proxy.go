@@ -5,7 +5,6 @@ import (
 	"net/http/httputil"
 	"net/url"
 	"strings"
-	"time"
 
 	. "github.com/innotech/hydra-reverse-proxy/vendors/github.com/innotech/hydra-go-client/client"
 
@@ -29,17 +28,18 @@ type HydraReverseProxy struct {
 }
 
 // buildHydraClient builds a hydra client configured completely.
-func (h *HydraReverseProxy) buildHydraClient() *Client {
-	if err := HydraClientFactory.Config(h.HydraServers); err != nil {
+func (h *HydraReverseProxy) buildHydraClient() Client {
+	factory, err := Config(h.HydraServers)
+	if err != nil {
 		log.Fatal(err.Error())
 	}
-	HydraClientFactory.WithAppsCacheDuration(time.Duration(h.HydraClient.AppsCacheDuration) * time.Millisecond).
-		WithHydraServersCacheDuration(time.Duration(h.HydraClient.HydraServersCacheDuration) * time.Millisecond).
-		WithMaxNumberOfRetriesPerHydraServer(h.HydraClient.MaxNumberOfRetries).
-		WaitBetweenAllServersRetry(time.Duration(h.HydraClient.DurationBetweenAllServersRetry) * time.Millisecond)
+	factory.WithAppsCacheRefreshTime(int(h.HydraClient.AppsCacheDuration)).
+		AndHydraRefreshTime(int(h.HydraClient.HydraServersCacheDuration)).
+		AndNumberOfRetries(int(h.HydraClient.MaxNumberOfRetries)).
+		WaitBetweenAllServersRetry(int(h.HydraClient.DurationBetweenAllServersRetry))
 
 	log.Info("Trying to connect with hydra servers")
-	return HydraClientFactory.Build()
+	return factory.Build()
 }
 
 func (h *HydraReverseProxy) singleJoiningSlash(a, b string) string {
@@ -75,7 +75,7 @@ func (h *HydraReverseProxy) buildProxy() *httputil.ReverseProxy {
 	hydraClient := h.buildHydraClient()
 	director := func(req *http.Request) {
 		var target *url.URL
-		serverURLs, err := hydraClient.Get(h.AppId, false)
+		serverURLs, err := hydraClient.GetShortcuttingTheCache(h.AppId)
 		if err != nil || err == nil && len(serverURLs) == 0 {
 			target, _ = url.Parse("")
 		} else {
