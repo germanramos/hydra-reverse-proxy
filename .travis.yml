@@ -6,7 +6,8 @@ go:
 before_install:
   - go get github.com/axw/gocov/gocov
   - go get github.com/mattn/goveralls
-  - go get -v code.google.com/p/go.tools/cmd/cover
+  # - go get -v code.google.com/p/go.tools/cmd/cover
+  - go get -v golang.org/x/tools/cmd/cover
 
 install:
   - go get -v github.com/onsi/ginkgo/ginkgo
@@ -15,5 +16,5 @@ install:
 
 script:
   - ./build
-  - cd reverse_proxy && ginkgo -r --failOnPending --cover --trace
+  - cd reverse_proxy && ginkgo -r --randomizeAllSpecs --randomizeSuites --failOnPending --cover --trace --race
   - $HOME/gopath/bin/goveralls -repotoken xuyphipg05P7ada0J8GeqzFp3TSGBLSPU
